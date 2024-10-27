@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-12 d-sm-flex justify-content-between mb-3">
+    <h2 class="mb-0">Pokémon Table</h2>
+    <div class="d-flex gap-2 mt-2 mt-sm-auto">
+      <button class="btn btn-sm btn-primary" type="button" [disabled]="isLoading" (click)="fetchData()">Refresh Data</button>
+      <button class="btn btn-sm btn-primary" type="button" [disabled]="isLoading" (click)="download()">Download CSV</button>
+    </div>
+  </div>
+  <div class="col-12">
+    <table class="table table-borderless table-hover table-responsive-lg table-sm">
+      <thead>
+        <tr>
+          <th class="sticky-top bg-white border-0 shadow-sm align-middle">#</th>
+          <th class="sticky-top bg-white border-0 shadow-sm align-middle">Name</th>
+          <th class="sticky-top bg-white border-0 shadow-sm align-middle">Height</th>
+          <th class="sticky-top bg-white border-0 shadow-sm align-middle">Weight</th>
+          <th class="sticky-top bg-white border-0 shadow-sm align-middle">Rank</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="isLoading">
+        <tr>
+          <td colspan="5" class="text-center">Loading data...</td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!isLoading && pokemonData?.length">
+        <ng-container *ngFor="let pokemon of pokemonData; let i = index">
+          <tr class="pointer" (click)="toggleDetails(i)">
+            <td class="align-middle">{{ i + 1 }}</td>
+            <td class="align-middle">{{pokemon.name || '-'}}</td>
+            <td class="align-middle">{{pokemon.height || '-'}}</td>
+            <td class="align-middle">{{pokemon.weight || '-'}}</td>
+            <td class="align-middle">{{pokemon.rank || '-'}}</td>
+          </tr>
+          <tr *ngIf="selectedPokemonIndex === i">
+            <td colspan="5">
+              <div class="accordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" (click)="toggleDetails(i)">Details</button>
+                  </h2>
+                  <div id="collapseDetails{{i}}" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                      <p>
+                        <strong>Moves:</strong>
+                        <span *ngFor="let move of pokemon.moves" class="badge mx-1">{{ move }}</span>
+                      </p>
+                      <p>
+                        <strong>Abilities:</strong>
+                        <span *ngFor="let ability of pokemon.abilities" class="badge mx-1">{{ ability }}</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+      <tbody *ngIf="!isLoading && !pokemonData?.length">
+        <tr>
+          <td colspan="5" class="text-center">No Pokémon data available.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

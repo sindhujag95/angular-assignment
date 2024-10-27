@@ -1,0 +1,14 @@
+th.sticky-top {
+    top: -1rem;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.badge.mx-1 {
+    font-weight: 400;
+    background-color: bisque;
+    color: black;
+    cursor: default;
+}

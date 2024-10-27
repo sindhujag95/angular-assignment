@@ -1,0 +1,12 @@
+<div class="row mt-3">
+  <div class="col-12">
+    <ng-container *ngFor="let item of data">
+      <div class="card mb-2 border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title">{{ item.title }}</h2>
+          <p class="card-text">{{ item.body }}</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

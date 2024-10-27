@@ -2,7 +2,12 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 
-import 'zone.js';
+const bootstrap = async () => {
+  try {
+    await platformBrowserDynamic().bootstrapModule(AppModule);
+  } catch (error) {
+    console.error('Bootstrap error:', error);
+  }
+};
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrap();
